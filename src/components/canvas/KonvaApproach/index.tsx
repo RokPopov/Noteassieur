@@ -16,7 +16,7 @@ export default function KonvaApproach() {
     dispatch(stageRemoveNote(id))
   }
 
-  function changeNote(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  function changeNote(e: textAreaOnChange) {
     const content = e.target.value
     const id = parseInt(e.target.id)
 
