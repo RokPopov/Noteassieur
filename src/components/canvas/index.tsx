@@ -1,4 +1,6 @@
+
 import React, { useRef, useEffect } from "react";
+
 
 export default function Canvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,5 +28,5 @@ export default function Canvas() {
         }}
       ></canvas>
     </div>
-  );
+  )
 }
