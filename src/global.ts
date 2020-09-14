@@ -7,3 +7,10 @@ export type Note = {
   id: number
   content: string
 }
+
+export type Timenote = {
+  id: number
+  timeIn: number
+  timeOut: number
+  notes: Note[]
+}

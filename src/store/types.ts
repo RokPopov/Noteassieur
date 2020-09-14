@@ -1,8 +1,7 @@
-import { Note } from "../global"
+import { Timenote } from "../global"
 
 export type StoreState = {
-  note: Note
-  notes: Note[]
+  timenotes: Timenote[]
 }
 
 export type GetState = () => StoreState
