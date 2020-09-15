@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import Player from "./VideoPlayer/Index";
 
 export default function Canvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,7 +25,6 @@ export default function Canvas() {
           backgroundColor: "grey",
         }}
       ></canvas>
-      <Player />
     </div>
   );
 }

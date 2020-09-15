@@ -10,6 +10,7 @@ function Player() {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [duration, setDuration] = useState(1);
+  const [data, setData] = useState([]);
 
   function handleSeekChange(e: any) {
     setPlayed(parseFloat(e.target.value));
@@ -50,6 +51,7 @@ function Player() {
 
   return (
     <div>
+      <VideoList />
       <ReactPlayer
         url={`https://www.youtube.com/watch?v=${videoId}`}
         ref={ref}
@@ -63,70 +65,54 @@ function Player() {
         onDuration={handleDuration}
       />
 
-      <tr>
-        <th></th>
-        <td>
-          <button onClick={handlePlayPause}>
-            {playing ? "Pause" : "Play"}
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <th></th>
-        <td>
+      {playing ? (
+        <p>
+          <button onClick={handlePlayPause}> Pause</button>
           <button onClick={handleAddNote}>Add Node</button>
-        </td>
-      </tr>
+        </p>
+      ) : (
+        <p>
+          <button onClick={handlePlayPause}> Play</button>
+        </p>
+      )}
 
-      <tr>
-        <th>Volume</th>
-        <td>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step="any"
-            value={volume}
-            onChange={handleVolumeChange}
-          />
-        </td>
-      </tr>
+      <p>
+        Volume{" "}
+        <input
+          type="range"
+          min={0}
+          max={1}
+          step="any"
+          value={volume}
+          onChange={handleVolumeChange}
+        />
+      </p>
 
-      <tr>
-        <th>Seeking</th>
-        <td>
-          <input
-            type="range"
-            min={0}
-            max={0.999999}
-            step="any"
-            value={played}
-            onMouseDown={handleSeekMouseDown}
-            onChange={handleSeekChange}
-            onMouseUp={handleSeekMouseUp}
-          />
-        </td>
-      </tr>
+      <p>
+        Jump to{" "}
+        <input
+          type="range"
+          min={0}
+          max={0.999999}
+          step="any"
+          value={played}
+          onMouseDown={handleSeekMouseDown}
+          onChange={handleSeekChange}
+          onMouseUp={handleSeekMouseUp}
+        />
+      </p>
 
-      <tr>
-        <th>duration</th>
-        <td>
-          <Duration seconds={duration} />
-        </td>
-      </tr>
-      <tr>
-        <th>elapsed</th>
-        <td>
-          <Duration seconds={duration * played} />
-        </td>
-      </tr>
-      <tr>
-        <th>remaining</th>
-        <td>
-          <Duration seconds={duration * (1 - played)} />
-        </td>
-      </tr>
-      <VideoList />
+      <p>
+        duration <Duration seconds={duration} />
+      </p>
+
+      <p>
+        elapsed <Duration seconds={duration * played} />
+      </p>
+
+      <p>
+        remaining <Duration seconds={duration * (1 - played)} />
+      </p>
     </div>
   );
 }

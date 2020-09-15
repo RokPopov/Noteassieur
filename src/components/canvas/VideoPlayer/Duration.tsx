@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function Duration({ seconds }: { seconds: any }) {
+export default function Duration({ seconds }: { seconds: number }) {
   return <time dateTime={`P${Math.round(seconds)}S`}>{format(seconds)}</time>;
 }
 
-function format(seconds: any) {
+function format(seconds: number) {
   const date = new Date(seconds * 1000);
   const hh = date.getUTCHours();
   const mm = date.getUTCMinutes();
@@ -15,6 +15,6 @@ function format(seconds: any) {
   return `${mm}:${ss}`;
 }
 
-function pad(string: any) {
+function pad(string: number) {
   return ("0" + string).slice(-2);
 }
