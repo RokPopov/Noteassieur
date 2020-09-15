@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Player from "./Index";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
 
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import { Container, Input } from "@material-ui/core";
 function VideoList() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("React Native");
 
   const [videoId, setVideoId] = useState("Hf4MJH0jDb4");
+
+  const apiKey = "AIzaSyAFOU_P_EeypyHzJg-N4IfuneruGzrm1Ak";
 
   function handleSubmit(e: any) {
     console.log(search);
@@ -22,7 +33,7 @@ function VideoList() {
 
   const fetchData = async () => {
     const result = await axios(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=AIzaSyB0E92lnR4Ar160Qst27hLpLAH4qS-YatU`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}`
     );
 
     setData(result.data.items);
@@ -32,32 +43,67 @@ function VideoList() {
     fetchData();
   }, []);
 
-  const videos: any = !data ? (
-    <p>loading</p>
-  ) : (
-    data.map((video: any) => {
-      return (
-        <>
-          <p>{video.snippet.title}</p>
+  const useStyles = makeStyles({
+    root: {
+      maxWidth: 345,
+    },
+    media: {
+      height: 140,
+    },
+  });
 
-          <p>
-            <span
-              onClick={() => {
-                setVideoId(video.id.videoId);
-              }}
-              style={{ cursor: "pointer" }}
-            >
-              <img
-                src={video.snippet.thumbnails.high.url}
-                alt={video.snippet.title}
-                width="320"
-                height="240"
-              ></img>
-            </span>
-          </p>
-        </>
-      );
-    })
+  const classes = useStyles();
+
+  const videos: any = (
+    <>
+      <Grid container justify="center" spacing={1}>
+        {data.map((video: any) => {
+          return (
+            <Grid key={video} item>
+              <Card
+                className={classes.root}
+                style={{ height: 450, width: 370 }}
+              >
+                <CardContent>
+                  <Typography
+                    // className={classes.title}
+                    color="textSecondary"
+                    gutterBottom
+                  >
+                    <img
+                      src={video.snippet.thumbnails.high.url}
+                      alt={video.snippet.title}
+                      width="320"
+                      height="240"
+                    ></img>
+                  </Typography>
+                  <Typography variant="h6" component="h1">
+                    {video.snippet.title.slice(0, 30)}
+                  </Typography>
+                  <Typography color="textSecondary">
+                    {video.snippet.title}
+                  </Typography>
+
+                  <CardActions>
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        setVideoId(video.id.videoId);
+                      }}
+                      style={{ cursor: "pointer", marginTop: "50px" }}
+                      variant="outlined"
+                      color="primary"
+                    >
+                      Watch Video
+                    </Button>
+                  </CardActions>
+                </CardContent>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </>
   );
 
   // const videoPlay: any = !data ? (
@@ -70,11 +116,25 @@ function VideoList() {
 
   return (
     <>
+      <Container>
+        <form
+          onSubmit={handleSubmit}
+          className={classes.root}
+          noValidate
+          autoComplete="off"
+        >
+          <Input
+            defaultValue="Search Here"
+            onChange={onChange}
+            type="text"
+            value={search}
+          />
+
+          <Input type="submit" />
+        </form>
+      </Container>
       <Player videoPlay={videoId} />
-      <form onSubmit={handleSubmit}>
-        <input onChange={onChange} type="text" value={search} />
-        <input type="submit" />
-      </form>
+
       <p>{videos}</p>
     </>
   );
