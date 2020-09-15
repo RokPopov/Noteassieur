@@ -1,8 +1,6 @@
-import { time } from "console"
 import { Dispatch } from "redux"
-import { Timenote } from "../../global"
 import { GetState } from "../types"
-import { REMOVE_NOT_BY_IDS, STORE_A_NOTE_BY_TIMENOTE_ID } from "./types"
+import { REMOVE_NOT_BY_IDS, SET_TIME_IN_BY_ID, SET_TIME_OUT_BY_ID, STORE_A_NOTE_BY_TIMENOTE_ID } from "./types"
 
 export function stageRemoveNote(id: number, timenoteId: number) {
   return (dispatch: Dispatch, getState: GetState) => {
@@ -15,6 +13,12 @@ function removeNoteByIds(id: number, timenoteId: number) {
     type: REMOVE_NOT_BY_IDS,
     id,
     timenoteId
+  }
+}
+
+export function stageNewtimenote(curtime: number) {
+  return (dispatch: Dispatch, getState: GetState) => {
+    console.log(curtime)
   }
 }
 
@@ -47,5 +51,31 @@ function storeANoteByTimenoteId(timenoteId: Number, highestID: number) {
     type: STORE_A_NOTE_BY_TIMENOTE_ID,
     timenoteId,
     highestID
+  }
+}
+
+export function stageSetTimeIn(timeIn: number, timenoteId: number) {
+  return (dispatch: Dispatch) => {
+    console.log(timeIn)
+    console.log(timenoteId)
+
+    dispatch({
+      type: SET_TIME_IN_BY_ID,
+      timeIn,
+      timenoteId
+    })
+  }
+}
+
+export function stageSetTimeOut(timeOut: number, timenoteId: number) {
+  return (dispatch: Dispatch) => {
+    console.log(timeOut)
+    console.log(timenoteId)
+
+    dispatch({
+      type: SET_TIME_OUT_BY_ID,
+      timeOut,
+      timenoteId
+    })
   }
 }

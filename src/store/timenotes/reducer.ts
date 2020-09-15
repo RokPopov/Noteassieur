@@ -1,5 +1,5 @@
 import { Timenote } from "../../global"
-import { myNoteActionTypes, REMOVE_NOT_BY_IDS, STORE_A_NOTE_BY_TIMENOTE_ID } from "./types"
+import { myNoteActionTypes, REMOVE_NOT_BY_IDS, SET_TIME_IN_BY_ID, SET_TIME_OUT_BY_ID, STORE_A_NOTE_BY_TIMENOTE_ID } from "./types"
 
 const initialState: Timenote[] = [
   {
@@ -75,6 +75,30 @@ export default (state = initialState, action: myNoteActionTypes) => {
                 content: `note ${action.highestID}`
               }
             ]
+          }
+        } else {
+          return timenote
+        }
+      })
+
+    case SET_TIME_IN_BY_ID:
+      return state.map((timenote: Timenote) => {
+        if (timenote.id === action.timenoteId) {
+          return {
+            ...timenote,
+            timeIn: action.timeIn
+          }
+        } else {
+          return timenote
+        }
+      })
+
+    case SET_TIME_OUT_BY_ID:
+      return state.map((timenote: Timenote) => {
+        if (timenote.id === action.timenoteId) {
+          return {
+            ...timenote,
+            timeOut: action.timeOut
           }
         } else {
           return timenote
