@@ -1,7 +1,5 @@
 import React from "react"
 import "./App.css"
-import Canvas from "./components/canvas"
-
 import KonvaApproach from "./components/canvas/KonvaApproach"
 
 function App() {

@@ -1,56 +1,32 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { stageRemoveNote } from "../../../store/timenotes/actions"
+import { stageAddNote, stageRemoveNote } from "../../../store/timenotes/actions"
 import { selectTimenotes } from "../../../store/timenotes/selectors"
 
 export default function KonvaApproach() {
   const dispatch = useDispatch()
 
-  // function newNote() {
-  //   dispatch(stageNewNote())
-  // }
-
-  // function changeNote(e: textAreaOnChange) {
-  //   const content = e.target.value
-  //   const id = parseInt(e.target.id)
-
-  //   dispatch(stageChangeNote(id, content))
-  // }
-
-  const [show, setShow] = useState(false)
-
-  function minimize() {
-    setShow(!show)
-  }
-
-  const display = show ? "none" : ""
-  const gridsize = show ? 100 : 200
-
   const [timelineValue, setTimeLine] = useState(0)
 
-  const allNotes = useSelector(selectTimenotes(timelineValue))
+  const notesAtPointInTime = useSelector(selectTimenotes(timelineValue))
 
   function timelineout(e: any) {
     console.log(e.target.value)
     setTimeLine(parseInt(e.target.value))
   }
 
-  console.log("this is,", allNotes)
-
   function removeNote(id: number, timenoteId: number) {
     dispatch(stageRemoveNote(id, timenoteId))
   }
 
+  function newNote() {
+    dispatch(stageAddNote(timelineValue))
+  }
   return (
     <div>
-      <div />
-      <button onClick={minimize} style={{ fontSize: "9px", margin: "5px" }}>
-        {!show ? "minimize" : "maximize"}
-      </button>
-
-      <div style={{ display: "grid", gridTemplateColumns: `${gridsize}px 200px` }}>
-        <div style={{ display: `${display}` }}>
-          {allNotes.map((timenote) => {
+      <div style={{ display: "grid", gridTemplateColumns: `200px 200px` }}>
+        <div>
+          {notesAtPointInTime.map((timenote) => {
             return timenote.notes.map((note) => {
               return (
                 <div key={note.id}>
@@ -60,14 +36,13 @@ export default function KonvaApproach() {
               )
             })
           })}
-
           <br />
-          {/* <button onClick={newNote}>Add a note</button> */}
+          <button onClick={newNote}>Add a note</button>
         </div>
         <div style={{ border: "1px solid black", width: "400px", height: "200px", margin: "auto" }}>
-          {allNotes.map((timenotes) => {
+          {notesAtPointInTime.map((timenotes) => {
             return timenotes.notes.map((note) => {
-              return <p>{note.content}</p>
+              return <p key={note.id}>{note.content}</p>
             })
           })}
         </div>
