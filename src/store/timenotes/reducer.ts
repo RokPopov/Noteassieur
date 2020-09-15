@@ -67,21 +67,23 @@ export default (state = initialState, action: myNoteActionTypes) => {
     //   ]
 
     case REMOVE_NOT_BY_IDS:
-      return [
-        ...state.filter((timenote) => {
-          if (timenote.id === action.timenoteId) {
-            return {
-              ...timenote.notes.map((note) => {
-                if (note.id === action.id) {
-                  return null
-                } else {
-                  return note
-                }
-              })
-            }
-          }
-        })
-      ]
+      console.log(action.id)
+      console.log(action.timenoteId)
+    // return [
+    //   ...state.map((timenote) => {
+    //     if (timenote.id === action.timenoteId) {
+    //       return {
+    //         ...timenote.notes.filter((note) => {
+    //           if (note.id === action.id) {
+    //             return null
+    //           } else {
+    //             return note
+    //           }
+    //         })
+    //       }
+    //     }
+    //   })
+    // ]
 
     // console.log("timenote id:", action.timenoteId)
     // console.log("title id:", action.id)
