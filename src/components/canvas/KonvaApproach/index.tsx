@@ -1,10 +1,7 @@
-import { notEqual } from "assert"
-import { time } from "console"
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Note } from "../../../global"
 import { stageRemoveNote } from "../../../store/timenotes/actions"
-import { selectAllNotes } from "../../../store/timenotes/selectors"
+import { selectTimenotes } from "../../../store/timenotes/selectors"
 
 export default function KonvaApproach() {
   const dispatch = useDispatch()
@@ -31,7 +28,7 @@ export default function KonvaApproach() {
 
   const [timelineValue, setTimeLine] = useState(0)
 
-  const allNotes = useSelector(selectAllNotes(timelineValue))
+  const allNotes = useSelector(selectTimenotes(timelineValue))
 
   function timelineout(e: any) {
     console.log(e.target.value)

@@ -1,6 +1,5 @@
-import { time } from "console"
 import { Timenote } from "../../global"
-import { CHANGE_NOTE_BY_ID, myNoteActionTypes, REMOVE_NOT_BY_IDS, STORE_NOTE } from "./types"
+import { myNoteActionTypes, REMOVE_NOT_BY_IDS } from "./types"
 
 const initialState: Timenote[] = [
   {
@@ -51,7 +50,37 @@ const initialState: Timenote[] = [
 ]
 
 export default (state = initialState, action: myNoteActionTypes) => {
+  function removeFromTimenote(timenote: Timenote) {
+    if (timenote.id === action.timenoteId) {
+      return {
+        ...timenote,
+        notes: timenote.notes.filter((note) => note.id !== action.id)
+      }
+    }
+    return timenote
+  }
+  console.log(action)
+  console.log("this is state", state)
   switch (action.type) {
+    case REMOVE_NOT_BY_IDS:
+      return state.map(removeFromTimenote)
+
+    //WHAT I SHOULD HAVE BEEN DOING:
+    // return state.map((timenote: Timenote) => {
+    //   if (timenote.id === action.timenoteId) {
+    //     return {
+    //       ...timenote,
+    //       notes: timenote.notes.filter((note) => {
+    //         if (note.id === action.id) {
+    //           return null
+    //         } else {
+    //           return note
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
+
     // case STORE_NOTE:
     //   return [...state, { id: action.id, content: "new note" }]
 
@@ -65,25 +94,6 @@ export default (state = initialState, action: myNoteActionTypes) => {
     //       }
     //     })
     //   ]
-
-    case REMOVE_NOT_BY_IDS:
-      console.log(action.id)
-      console.log(action.timenoteId)
-    // return [
-    //   ...state.map((timenote) => {
-    //     if (timenote.id === action.timenoteId) {
-    //       return {
-    //         ...timenote.notes.filter((note) => {
-    //           if (note.id === action.id) {
-    //             return null
-    //           } else {
-    //             return note
-    //           }
-    //         })
-    //       }
-    //     }
-    //   })
-    // ]
 
     // console.log("timenote id:", action.timenoteId)
     // console.log("title id:", action.id)
