@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from "react";
+import VideoList from "./VideoPlayer/VideoList";
 
 export default function Canvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -17,8 +18,8 @@ export default function Canvas() {
   return (
     <div>
       <h1>Something</h1>
+      <VideoList />
       <canvas
-        ref={canvasRef}
         width="700px"
         height="400px"
         style={{

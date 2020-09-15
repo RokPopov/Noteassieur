@@ -1,65 +1,81 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Player from "./Index";
 
 function VideoList() {
-  // const [data, setData] = useState([]);
-  // const [search, setSearch] = useState();
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("React Native");
 
-  // function handleSubmit(e: any) {
-  //   console.log(search);
-  //   e.preventDefault();
-  // }
+  const [videoId, setVideoId] = useState("Hf4MJH0jDb4");
 
-  // function onChange(e: any) {
-  //   e.preventDefault();
+  function handleSubmit(e: any) {
+    console.log(search);
+    e.preventDefault();
 
-  //   setSearch(e.target.value);
-  // }
+    fetchData();
+  }
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=AIzaSyD-w8GimrLZJV5Bp-8I-wYDcnqe0AXHVwg`
-  //     );
+  function onChange(e: any) {
+    e.preventDefault();
+    setSearch(e.target.value);
+  }
 
-  //     setData(result.data.items);
-  //   };
+  const fetchData = async () => {
+    const result = await axios(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=AIzaSyB0E92lnR4Ar160Qst27hLpLAH4qS-YatU`
+    );
 
-  //   fetchData();
-  // }, []);
+    setData(result.data.items);
+  };
 
-  // const videos: any = !data ? (
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const videos: any = !data ? (
+    <p>loading</p>
+  ) : (
+    data.map((video: any) => {
+      return (
+        <>
+          <p>{video.snippet.title}</p>
+
+          <p>
+            <span
+              onClick={() => {
+                setVideoId(video.id.videoId);
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={video.snippet.thumbnails.high.url}
+                alt={video.snippet.title}
+                width="320"
+                height="240"
+              ></img>
+            </span>
+          </p>
+        </>
+      );
+    })
+  );
+
+  // const videoPlay: any = !data ? (
   //   <p>loading</p>
   // ) : (
   //   data.map((video: any) => {
-  //     // console.log("this are videos", video);
-  //     return (
-  //       <>
-  //         <p>{video.snippet.title}</p>
-  //         <p>{video.id.videoId}</p>
-  //         <p>
-  //           {" "}
-  //           <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
-  //             <img
-  //               src={video.snippet.thumbnails.high.url}
-  //               alt={video.snippet.title}
-  //               width={video.snippet.thumbnails.high.width}
-  //               height={video.snippet.thumbnails.high.height}
-  //             ></img>
-  //           </a>
-  //         </p>
-  //       </>
-  //     );
+  //     return video.id.videoId;
   //   })
   // );
 
   return (
     <>
-      {/* <p>{videos}</p>
+      <Player videoPlay={videoId} />
       <form onSubmit={handleSubmit}>
         <input onChange={onChange} type="text" value={search} />
         <input type="submit" />
-      </form> */}
+      </form>
+      <p>{videos}</p>
     </>
   );
 }

@@ -6,7 +6,8 @@ import {
   stageRemoveNote,
 } from "../../../store/notes/actions";
 import { selectAllNotes } from "../../../store/notes/selectors";
-import Player from "../VideoPlayer/Index";
+// import Player from "../VideoPlayer/Index";
+import VideoList from "../VideoPlayer/VideoList";
 
 export default function KonvaApproach() {
   const allNotes = useSelector(selectAllNotes);
@@ -39,8 +40,6 @@ export default function KonvaApproach() {
 
   return (
     <>
-      <Player />
-
       <div
         style={{ display: "grid", gridTemplateColumns: `${gridsize}px 200px` }}
       >

@@ -1,16 +1,16 @@
 import React, { useState, useRef } from "react";
 import ReactPlayer from "react-player";
-import VideoList from "./VideoList";
+// import VideoList from "./VideoList";
 import Duration from "./Duration";
 
-function Player() {
+function Player({ videoPlay }: { videoPlay: any }) {
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
   const [, setSeeking] = useState(true);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const [duration, setDuration] = useState(1);
-  const [data, setData] = useState([]);
+  const [note, setNote] = useState(0);
 
   function handleSeekChange(e: any) {
     setPlayed(parseFloat(e.target.value));
@@ -44,16 +44,15 @@ function Player() {
   function handleAddNote() {
     console.log("This time", Math.round(duration * played));
     setPlaying(false);
-    return <p>{Math.round(duration * played)}</p>;
+    setNote(Math.round(duration * played));
   }
 
-  const videoId = "jhdFe3evXpk";
+  const videoId = videoPlay;
 
   return (
     <div>
-      <VideoList />
       <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${videoId}`}
+        url={`https://www.youtube.com/watch?v=${videoId}.`}
         ref={ref}
         playing={playing}
         controls={false}
@@ -113,6 +112,7 @@ function Player() {
       <p>
         remaining <Duration seconds={duration * (1 - played)} />
       </p>
+      <p>{note}</p>
     </div>
   );
 }
