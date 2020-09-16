@@ -9,18 +9,15 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMyVideo } from "../../../store/video/selector";
-<<<<<<< HEAD
+
 import {
   stageCurTimeOfVideo,
   stageTotalTimeOfVideo,
 } from "../../../store/video/actions";
 
-function Player() {
-=======
-import { stageCurTimeOfVideo } from "../../../store/video/actions";
 
-function Player({ videoPlay }: { videoPlay: any }) {
->>>>>>> 0337b8464ca8dd14930c44b816eb4428e426d5b8
+function Player() {
+
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
   const [, setSeeking] = useState(true);
@@ -55,18 +52,12 @@ function Player({ videoPlay }: { videoPlay: any }) {
   }
 
   function handleProgress(data: any) {
-<<<<<<< HEAD
-=======
-    // we need dispatch it to the store with an action (?)
->>>>>>> 0337b8464ca8dd14930c44b816eb4428e426d5b8
+
     setPlayed(data.played);
   }
 
   function handleAddNote() {
-<<<<<<< HEAD
-=======
-    //console.log("This time", Math.round(duration * played))
->>>>>>> 0337b8464ca8dd14930c44b816eb4428e426d5b8
+
     setPlaying(false);
     setNote(Math.round(duration * played));
   }
@@ -75,18 +66,16 @@ function Player({ videoPlay }: { videoPlay: any }) {
 
   useEffect(() => {
     const curTime = Math.round(duration * played);
-<<<<<<< HEAD
+
     const TotalTime = Math.round(duration);
     dispatch(stageCurTimeOfVideo(curTime));
     dispatch(stageTotalTimeOfVideo(TotalTime));
   }, [played]);
-=======
+
 
     dispatch(stageCurTimeOfVideo(curTime));
   }, [played]);
 
-  const videoId = videoPlay;
->>>>>>> 0337b8464ca8dd14930c44b816eb4428e426d5b8
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({

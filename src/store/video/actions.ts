@@ -11,6 +11,7 @@ export function stageCurTimeOfVideo(curtime: number) {
   };
 }
 
+
 export function stageTotalTimeOfVideo(totaltime: number) {
   return (dispatch: Dispatch, getState: GetState) => {
     dispatch({
@@ -28,5 +29,6 @@ export function stageCurVideo(curvideo: string) {
     });
   };
 }
+
 
 
