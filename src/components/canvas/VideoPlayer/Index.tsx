@@ -15,9 +15,7 @@ import {
   stageTotalTimeOfVideo,
 } from "../../../store/video/actions";
 
-
 function Player() {
-
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
   const [, setSeeking] = useState(true);
@@ -52,12 +50,10 @@ function Player() {
   }
 
   function handleProgress(data: any) {
-
     setPlayed(data.played);
   }
 
   function handleAddNote() {
-
     setPlaying(false);
     setNote(Math.round(duration * played));
   }
@@ -71,11 +67,6 @@ function Player() {
     dispatch(stageCurTimeOfVideo(curTime));
     dispatch(stageTotalTimeOfVideo(TotalTime));
   }, [played]);
-
-
-    dispatch(stageCurTimeOfVideo(curTime));
-  }, [played]);
-
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
