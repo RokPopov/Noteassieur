@@ -26,3 +26,7 @@ export const selectMinMaxValueById = (id: number | null) => {
     console.log(id)
   }
 }
+
+export const selectAllTimenotes = (state: StoreState) => {
+  return state.timenotes
+}

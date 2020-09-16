@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Timenote } from "../../../global"
-import { stageAddNote, stageNewtimenote, stageRemoveNote, stageSetTimeIn, stageSetTimeOut } from "../../../store/timenotes/actions"
-import { selectMinMaxValueById, selectTimenotes } from "../../../store/timenotes/selectors"
+import { stageAddNote, stageEditNote, stageNewtimenote, stageRemoveNote, stageSetTimeIn, stageSetTimeOut } from "../../../store/timenotes/actions"
+import { selectAllTimenotes, selectMinMaxValueById, selectTimenotes } from "../../../store/timenotes/selectors"
 
 export default function KonvaApproach() {
   const dispatch = useDispatch()
@@ -60,14 +60,39 @@ export default function KonvaApproach() {
     dispatch(stageSetTimeOut(timeOut, id))
   }
 
+  function editNote(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    const content = e.target.value
+
+    const [noteId, timenoteId] = e.target.id.split(" ")
+
+    dispatch(stageEditNote(content, parseInt(noteId), parseInt(timenoteId)))
+  }
+
+  const allTimeNotes = useSelector(selectAllTimenotes)
+
+  const [videoLength, setVideoLength] = useState(500)
+
+  const [deleteBtn, setDelete] = useState(false)
+  const [opacityDelete, setstate] = useState(1)
+
+  function hoverIn() {
+    setDelete(!deleteBtn)
+  }
+
+  function hoverAway() {
+    setTimeout(() => {
+      setDelete(!deleteBtn)
+    }, 1000)
+  }
+
   return (
     <div>
-      <div style={{ display: "grid", gridTemplateColumns: `200px 200px` }}>
-        <div>
+      <div style={{ margin: "10px", display: "grid", gridTemplateColumns: `200px 200px` }}>
+        <div style={{ border: "1px solid black", width: "200px", height: "200px", margin: "auto" }}>
           {notesAtPointInTime.map((timenote) => {
             return timenote.notes.map((note) => {
               return (
-                <div key={note.id}>
+                <div>
                   {note.id === 1 ? (
                     <div>
                       {timenote.timeOut - timelineValue > 3 ? (
@@ -75,7 +100,7 @@ export default function KonvaApproach() {
                           <small>range: </small>
                           <small>{timenote.timeIn} - </small>
                           <small>{timenote.timeOut} </small>
-                          <button onClick={() => setRange(timenote.id)}>Edit</button>
+                          <button onClick={() => setRange(timenote.id)}>✍︎</button>
                         </div>
                       ) : (
                         <small>{timenote.timeOut - timelineValue} sec left</small>
@@ -84,34 +109,33 @@ export default function KonvaApproach() {
                   ) : (
                     ""
                   )}
-
-                  <textarea defaultValue={note.content} name="" cols={13} rows={3}></textarea>
-                  <button onClick={() => removeNote(note.id, timenote.id)}>-</button>
+                  {deleteBtn ? (
+                    <button style={{ fontSize: "4px", opacity: `${opacityDelete}` }} onClick={() => removeNote(note.id, timenote.id)}>
+                      ❌
+                    </button>
+                  ) : (
+                    ""
+                  )}
+                  <textarea onMouseLeave={hoverAway} onMouseOver={hoverIn} draggable id={`${note.id.toString()} ${timenote.id.toString()}`} onChange={editNote} value={note.content} name="" cols={13} rows={3}></textarea>
                 </div>
               )
             })
           })}
-          <br />
-          <button disabled={buttonshow} onClick={newNote}>
-            Add a note
+          <button style={{ display: `${!buttonshow ? `none` : ``}`, fontSize: "10px" }} onClick={newTimenote}>
+            📝 new notes
           </button>
-          <button onClick={newTimenote}>Add new notes from here</button>
-        </div>
-        <div style={{ border: "1px solid black", width: "400px", height: "200px", margin: "auto" }}>
-          {notesAtPointInTime.map((timenotes) => {
-            return timenotes.notes.map((note) => {
-              return <p key={note.id}>{note.content}</p>
-            })
-          })}
+          <button style={{ fontSize: "9px" }} disabled={buttonshow} onClick={newNote}>
+            ➕
+          </button>
         </div>
         <div></div>
-        <div>{/* <div style={{ border: "1px solid black", width: "400px", height: "200px", margin: "auto" }}>
-            {allNotes.map((note) => {
-              return <p>{note.content.length > 1 ? note.content : "_"}</p>
-            })}
-          </div> */}</div>
       </div>
-      <input onChange={timelineout} defaultValue={timelineValue} style={{ width: "500px" }} type="range" min="0" max="300" />
+      <div style={{ position: "relative", width: "500px", height: "15px", margin: "auto", boxShadow: "1px 1px 1px rgba(1,0,0,0.05)" }}>
+        {allTimeNotes.map((timenote) => {
+          return <small style={{ width: `${(500 / videoLength) * (timenote.timeOut - timenote.timeIn)}px`, position: "absolute", left: `${(500 / videoLength) * timenote.timeIn}px`, color: "#98B6D3", border: "none", fontSize: "2xp", boxShadow: "0px 1px 1px rgba(0,0,0,0.2)" }}>✍︎</small>
+        })}
+      </div>
+      <input onChange={timelineout} defaultValue={timelineValue} style={{ width: "500px" }} type="range" min="0" max={`${videoLength}`} />
       <div>
         <button onClick={() => setPlayPause(!playPause)}>{!playPause ? "play" : "pause"}</button>
       </div>
@@ -120,9 +144,9 @@ export default function KonvaApproach() {
       {id !== 0 ? (
         <div style={{ width: "500px", margin: "auto" }}>
           <small>In point: {minMaxValue?.timeIn}</small>
-          <input onChange={setTimeIn} value={minMaxValue?.timeIn} style={{ width: "500px" }} type="range" min="0" max="300" />
+          <input onChange={setTimeIn} value={minMaxValue?.timeIn} style={{ width: "500px" }} type="range" min="0" max={`${videoLength}`} />
           <small>Out point: {minMaxValue?.timeOut}</small>
-          <input onChange={setTimeOut} value={minMaxValue?.timeOut} style={{ width: "500px" }} type="range" min="0" max="300" />
+          <input onChange={setTimeOut} value={minMaxValue?.timeOut} style={{ width: "500px" }} type="range" min="0" max={`${videoLength}`} />
         </div>
       ) : (
         ""
