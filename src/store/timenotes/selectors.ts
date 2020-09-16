@@ -26,3 +26,7 @@ export const selectMinMaxValueById = (id: number | null) => {
 export const selectAllTimenotes = (state: StoreState) => {
   return state.timenotes
 }
+
+export const selectCurTime = (state: StoreState) => {
+  return state.video.curTimeOfVideo
+}
