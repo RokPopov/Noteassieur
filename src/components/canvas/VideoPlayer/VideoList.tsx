@@ -1,58 +1,57 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Player from "./Index";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
+import React, { useState, useEffect } from "react"
+import axios from "axios"
+import Player from "./Index"
+import { makeStyles } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
 
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions"
+import CardContent from "@material-ui/core/CardContent"
 
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import { Container, Input } from "@material-ui/core";
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import Grid from "@material-ui/core/Grid"
+import { Container, Input } from "@material-ui/core"
+import { VideoId } from "../../../global"
 function VideoList() {
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState("React Native");
+  const [data, setData] = useState([])
+  const [search, setSearch] = useState("React Native")
 
-  const [videoId, setVideoId] = useState("Hf4MJH0jDb4");
+  const [videoId, setVideoId] = useState<VideoId>("Hf4MJH0jDb4")
 
-  const apiKey = "AIzaSyAFOU_P_EeypyHzJg-N4IfuneruGzrm1Ak";
+  const apiKey = "AIzaSyAFOU_P_EeypyHzJg-N4IfuneruGzrm1Ak"
 
   function handleSubmit(e: any) {
-    console.log(search);
-    e.preventDefault();
+    console.log(search)
+    e.preventDefault()
 
-    fetchData();
+    fetchData()
   }
 
   function onChange(e: any) {
-    e.preventDefault();
-    setSearch(e.target.value);
+    e.preventDefault()
+    setSearch(e.target.value)
   }
 
   const fetchData = async () => {
-    const result = await axios(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}`
-    );
+    const result = await axios(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}`)
 
-    setData(result.data.items);
-  };
+    setData(result.data.items)
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+      maxWidth: 345
     },
     media: {
-      height: 140,
-    },
-  });
+      height: 140
+    }
+  })
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const videos: any = (
     <>
@@ -60,35 +59,25 @@ function VideoList() {
         {data.map((video: any) => {
           return (
             <Grid key={video} item>
-              <Card
-                className={classes.root}
-                style={{ height: 450, width: 370 }}
-              >
+              <Card className={classes.root} style={{ height: 450, width: 370 }}>
                 <CardContent>
                   <Typography
                     // className={classes.title}
                     color="textSecondary"
                     gutterBottom
                   >
-                    <img
-                      src={video.snippet.thumbnails.high.url}
-                      alt={video.snippet.title}
-                      width="320"
-                      height="240"
-                    ></img>
+                    <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} width="320" height="240"></img>
                   </Typography>
                   <Typography variant="h6" component="h1">
                     {video.snippet.title.slice(0, 30)}
                   </Typography>
-                  <Typography color="textSecondary">
-                    {video.snippet.title}
-                  </Typography>
+                  <Typography color="textSecondary">{video.snippet.title}</Typography>
 
                   <CardActions>
                     <Button
                       size="small"
                       onClick={() => {
-                        setVideoId(video.id.videoId);
+                        setVideoId(video.id.videoId)
                       }}
                       style={{ cursor: "pointer", marginTop: "50px" }}
                       variant="outlined"
@@ -100,11 +89,11 @@ function VideoList() {
                 </CardContent>
               </Card>
             </Grid>
-          );
+          )
         })}
       </Grid>
     </>
-  );
+  )
 
   // const videoPlay: any = !data ? (
   //   <p>loading</p>
@@ -117,18 +106,8 @@ function VideoList() {
   return (
     <>
       <Container>
-        <form
-          onSubmit={handleSubmit}
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-        >
-          <Input
-            defaultValue="Search Here"
-            onChange={onChange}
-            type="text"
-            value={search}
-          />
+        <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
+          <Input defaultValue="Search Here" onChange={onChange} type="text" value={search} />
 
           <Input type="submit" />
         </form>
@@ -137,7 +116,7 @@ function VideoList() {
 
       <p>{videos}</p>
     </>
-  );
+  )
 }
 
-export default VideoList;
+export default VideoList

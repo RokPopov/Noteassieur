@@ -14,3 +14,12 @@ export type Timenote = {
   timeOut: number
   notes: Note[]
 }
+
+export type VideoId = string
+
+export type Video = {
+  title: string
+  url: VideoId
+  lengthOfVid: number
+  curTimeOfVideo: number
+}

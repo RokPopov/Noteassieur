@@ -1,24 +1,18 @@
-
 import React from "react"
 import "./App.css"
-import KonvaApproach from "./components/canvas/KonvaApproach"
-import Canvas from "./components/canvas";
+import NoteTaker from "./components/canvas/NoteTaker"
 
-import KonvaApproach from "./components/canvas/KonvaApproach";
+import VideoList from "./components/canvas/VideoPlayer/VideoList"
 
 function App() {
   return (
     <div className="App">
-
-      {/* 
-      <h1>Something arbitrary</h1>
-      <Canvas /> */}
-
       <h1>Noteassieur:</h1>
+      <VideoList />
       <br />
-      <KonvaApproach />
+      <NoteTaker />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

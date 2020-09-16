@@ -2,10 +2,6 @@ import { StoreState } from "../types"
 
 export const selectTimenotes = (timecode: any) => {
   return (state: StoreState) => {
-    if (state.timenotes === undefined) {
-      return []
-    }
-
     return state.timenotes.filter((timenote) => {
       const startsAfter = timenote.timeIn <= timecode
       const endsBefore = timenote.timeOut >= timecode
