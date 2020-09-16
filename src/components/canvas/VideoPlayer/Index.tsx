@@ -9,15 +9,13 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMyVideo } from "../../../store/video/selector";
-
 import {
   stageCurTimeOfVideo,
   stageTotalTimeOfVideo,
 } from "../../../store/video/actions";
-
+import { selectCurTime } from "../../../store/timenotes/selectors";
 
 function Player() {
-
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
   const [, setSeeking] = useState(true);
@@ -27,20 +25,19 @@ function Player() {
   const [note, setNote] = useState(0);
 
   function handleSeekChange(e: any) {
+    console.log("waarde", e.target.value);
+    console.log("waarde", parseFloat(e.target.value));
     setPlayed(parseFloat(e.target.value));
-  }
-
-  function handlePlayPause() {
-    setPlaying(!playing);
-  }
-
-  function handleSeekMouseDown() {
-    setSeeking(true);
   }
 
   function handleSeekMouseUp(e: any) {
     setSeeking(false);
+    console.log("önchange", e.target.value);
     ref?.current?.seekTo(parseFloat(e.target.value));
+  }
+
+  function handlePlayPause() {
+    setPlaying(!playing);
   }
 
   function handleVolumeChange(e: any) {
@@ -52,12 +49,10 @@ function Player() {
   }
 
   function handleProgress(data: any) {
-
     setPlayed(data.played);
   }
 
   function handleAddNote() {
-
     setPlaying(false);
     setNote(Math.round(duration * played));
   }
@@ -65,17 +60,15 @@ function Player() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const curTime = Math.round(duration * played);
-
+    const curTime = played;
     const TotalTime = Math.round(duration);
     dispatch(stageCurTimeOfVideo(curTime));
     dispatch(stageTotalTimeOfVideo(TotalTime));
   }, [played]);
 
+  const curTime = useSelector(selectCurTime);
 
-    dispatch(stageCurTimeOfVideo(curTime));
-  }, [played]);
-
+  console.log("Ciurrent ntime", curTime);
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -180,8 +173,7 @@ function Player() {
                 min={0}
                 max={0.999999}
                 step="any"
-                value={played}
-                onMouseDown={handleSeekMouseDown}
+                value={curTime}
                 onChange={handleSeekChange}
                 onMouseUp={handleSeekMouseUp}
               />
