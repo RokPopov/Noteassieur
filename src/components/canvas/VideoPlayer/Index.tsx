@@ -9,9 +9,15 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { selectMyVideo } from "../../../store/video/selector";
-import { stageCurTimeOfVideo } from "../../../store/video/actions";
 
-function Player({ videoPlay }: { videoPlay: any }) {
+import {
+  stageCurTimeOfVideo,
+  stageTotalTimeOfVideo,
+} from "../../../store/video/actions";
+
+
+function Player() {
+
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
   const [, setSeeking] = useState(true);
@@ -46,12 +52,12 @@ function Player({ videoPlay }: { videoPlay: any }) {
   }
 
   function handleProgress(data: any) {
-    // we need dispatch it to the store with an action (?)
+
     setPlayed(data.played);
   }
 
   function handleAddNote() {
-    //console.log("This time", Math.round(duration * played))
+
     setPlaying(false);
     setNote(Math.round(duration * played));
   }
@@ -61,10 +67,15 @@ function Player({ videoPlay }: { videoPlay: any }) {
   useEffect(() => {
     const curTime = Math.round(duration * played);
 
+    const TotalTime = Math.round(duration);
+    dispatch(stageCurTimeOfVideo(curTime));
+    dispatch(stageTotalTimeOfVideo(TotalTime));
+  }, [played]);
+
+
     dispatch(stageCurTimeOfVideo(curTime));
   }, [played]);
 
-  const videoId = videoPlay;
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
