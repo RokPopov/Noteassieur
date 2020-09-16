@@ -12,10 +12,12 @@ import {
 import {
   selectAllTimenotes,
   selectCurTime,
+  selectTotalTime,
   selectMinMaxValueById,
   selectTimenotes,
 } from "../../../store/timenotes/selectors";
 import { stageCurTimeOfVideo } from "../../../store/video/actions";
+import Duration from "../VideoPlayer/Duration";
 import VideoList from "../VideoPlayer/VideoList";
 
 // import Player from "../VideoPlayer/Index";
@@ -26,12 +28,13 @@ export default function NoteTaker() {
   const [playPause, setPlayPause] = useState(false);
 
   const curTime = useSelector(selectCurTime);
+  const TotalTime = useSelector(selectTotalTime);
 
   const notesAtPointInTime = useSelector(selectTimenotes(curTime));
 
   function timelineout(e: any) {
     console.log(e.target.value);
-    dispatch(stageCurTimeOfVideo(e.target.value));
+    dispatch(stageCurTimeOfVideo(parseFloat(e.target.value)));
   }
 
   function removeNote(id: number, timenoteId: number) {
@@ -57,7 +60,7 @@ export default function NoteTaker() {
     setId(id);
   }
 
-  console.log(typeof minMaxValue?.timeIn);
+  console.log(minMaxValue);
 
   function setTimeIn(e: any) {
     const timeIn = e.target.value;
@@ -131,7 +134,9 @@ export default function NoteTaker() {
                           </button>
                         </div>
                       ) : (
-                        <small>{timenote.timeOut - curTime} sec left</small>
+                        <small>
+                          {timenote.timeOut - curTime * TotalTime} sec left
+                        </small>
                       )}
                     </div>
                   ) : (
@@ -199,11 +204,9 @@ export default function NoteTaker() {
               })} */}
               <small
                 style={{
-                  width: `${
-                    (500 / videoLength) * (timenote.timeOut - timenote.timeIn)
-                  }px`,
+                  width: `${(timenote.timeOut - timenote.timeIn) * 100}%`,
                   position: "absolute",
-                  left: `${(500 / videoLength) * timenote.timeIn}px`,
+                  left: `${timenote.timeIn * 100}%`,
                   color: "#98B6D3",
                   border: "none",
                   fontSize: "2xp",
@@ -216,41 +219,51 @@ export default function NoteTaker() {
           );
         })}
       </div>
-      <input
+      {/* <input
         onChange={timelineout}
         value={curTime}
-        style={{ width: "500px" }}
+       
         type="range"
         min={0}
         max={0.999999}
         step="any"
-      />
-      <div>
-        <button onClick={() => setPlayPause(!playPause)}>
-          {!playPause ? "play" : "pause"}
-        </button>
-      </div>
-      <p>time {curTime} in seconds</p>
+      /> */}
 
       {id !== 0 ? (
         <div style={{ width: "500px", margin: "auto" }}>
-          <small>In point: {minMaxValue?.timeIn}</small>
+          <small>
+            In point:{" "}
+            {minMaxValue?.timeIn ? (
+              <Duration seconds={minMaxValue?.timeIn * TotalTime} />
+            ) : (
+              minMaxValue?.timeIn
+            )}
+          </small>
           <input
             onChange={setTimeIn}
             value={minMaxValue?.timeIn}
             style={{ width: "500px" }}
             type="range"
-            min="0"
-            max={`${videoLength}`}
+            min={0}
+            max={0.999999}
+            step="any"
           />
-          <small>Out point: {minMaxValue?.timeOut}</small>
+          <small>
+            Out point:
+            {minMaxValue?.timeIn ? (
+              <Duration seconds={minMaxValue?.timeOut * TotalTime} />
+            ) : (
+              minMaxValue?.timeOut
+            )}
+          </small>
           <input
             onChange={setTimeOut}
             value={minMaxValue?.timeOut}
             style={{ width: "500px" }}
             type="range"
-            min="0"
-            max={`${videoLength}`}
+            min={0}
+            max={0.999999}
+            step="any"
           />
         </div>
       ) : (
