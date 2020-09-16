@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { Timenote } from "../../../global"
 import { stageAddNote, stageEditNote, stageNewtimenote, stageRemoveNote, stageSetTimeIn, stageSetTimeOut } from "../../../store/timenotes/actions"
 import { selectAllTimenotes, selectCurTime, selectMinMaxValueById, selectTimenotes } from "../../../store/timenotes/selectors"
@@ -27,10 +28,12 @@ export default function NoteTaker() {
   }
 
   function newNote() {
+    console.log("hello")
     dispatch(stageAddNote(parseInt(curTime)))
   }
 
   function newTimenote() {
+    console.log("helasdasdlo")
     dispatch(stageNewtimenote())
   }
 
@@ -67,7 +70,7 @@ export default function NoteTaker() {
 
   const allTimeNotes = useSelector(selectAllTimenotes)
 
-  const [videoLength, setVideoLength] = useState(60)
+  const [videoLength, setVideoLength] = useState(300)
 
   const [deleteBtn, setDelete] = useState(false)
   const [opacityDelete, setstate] = useState(1)
