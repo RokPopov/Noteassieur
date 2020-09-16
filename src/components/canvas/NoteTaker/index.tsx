@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Timenote } from "../../../global";
+import { Typography, Slider } from "@material-ui/core";
 import {
   stageAddNote,
   stageEditNote,
@@ -186,39 +187,7 @@ export default function NoteTaker() {
         </div>
         <div></div>
       </div>
-      <div
-        style={{
-          position: "relative",
-          width: "500px",
-          height: "15px",
-          margin: "auto",
-          boxShadow: "1px 1px 1px  rgba(1,0,0,0.05)",
-        }}
-      >
-        {allTimeNotes.map((timenote) => {
-          return (
-            <div>
-              {/* // make a tooltip or modal for displaying the user indications of notes */}
-              {/* {timenote.notes.map((note) => {
-                return <small>{note.content}</small>
-              })} */}
-              <small
-                style={{
-                  width: `${(timenote.timeOut - timenote.timeIn) * 100}%`,
-                  position: "absolute",
-                  left: `${timenote.timeIn * 100}%`,
-                  color: "#98B6D3",
-                  border: "none",
-                  fontSize: "2xp",
-                  boxShadow: "0px 1px 1px rgba(0,0,0,0.2)",
-                }}
-              >
-                ✍︎
-              </small>
-            </div>
-          );
-        })}
-      </div>
+
       {/* <input
         onChange={timelineout}
         value={curTime}
@@ -230,42 +199,106 @@ export default function NoteTaker() {
       /> */}
 
       {id !== 0 ? (
-        <div style={{ width: "500px", margin: "auto" }}>
-          <small>
-            In point:{" "}
-            {minMaxValue?.timeIn ? (
+        <>
+          <div style={{ width: "500px", margin: "auto" }}>
+            <Typography id="range-slider" gutterBottom>
+              Show note at
+            </Typography>
+            <Slider
+              defaultValue={minMaxValue?.timeIn}
+              onChange={setTimeIn}
+              valueLabelDisplay="auto"
+              aria-labelledby="continuous-slider"
+              min={0}
+              max={0.999999}
+              step={0.000001}
+
+              // getAriaValueText={curTime}
+            />
+            {/* <small>
+              Moment when note starts showing:{" "}
+              {minMaxValue?.timeIn ? (
               <Duration seconds={minMaxValue?.timeIn * TotalTime} />
             ) : (
               minMaxValue?.timeIn
             )}
-          </small>
-          <input
-            onChange={setTimeIn}
-            value={minMaxValue?.timeIn}
-            style={{ width: "500px" }}
-            type="range"
-            min={0}
-            max={0.999999}
-            step="any"
-          />
-          <small>
-            Out point:
-            {minMaxValue?.timeIn ? (
+            </small> */}
+            {/* <input
+              onChange={setTimeIn}
+              value={minMaxValue?.timeIn}
+              style={{ width: "500px" }}
+              type="range"
+              min={0}
+              max={0.999999}
+              step="any"
+            /> */}
+            <Typography id="range-slider" gutterBottom>
+              Stop showing note at:
+            </Typography>
+            <Slider
+              
+              defaultValue={minMaxValue?.timeOut}
+              onChange={setTimeOut}
+              valueLabelDisplay="auto"
+              aria-labelledby="continuous-slider"
+              min={0}
+              max={0.999999}
+              step={0.000001}
+              // getAriaValueText={curTime}
+            />
+            {/* <small>
+              Moment when note stops showing:
+              {minMaxValue?.timeIn ? (
               <Duration seconds={minMaxValue?.timeOut * TotalTime} />
             ) : (
               minMaxValue?.timeOut
             )}
-          </small>
-          <input
-            onChange={setTimeOut}
-            value={minMaxValue?.timeOut}
-            style={{ width: "500px" }}
-            type="range"
-            min={0}
-            max={0.999999}
-            step="any"
-          />
-        </div>
+            </small>
+
+            <input
+              onChange={setTimeOut}
+              value={minMaxValue?.timeOut}
+              style={{ width: "500px" }}
+              type="range"
+              min={0}
+              max={0.999999}
+              step="any"
+            /> */}
+          </div>
+          <div
+            style={{
+              position: "relative",
+              width: "500px",
+              height: "15px",
+              margin: "auto",
+              boxShadow: "1px 1px 1px  rgba(1,0,0,0.05)",
+            }}
+          >
+            {allTimeNotes.map((timenote) => {
+              return (
+                <div>
+                  {/* // make a tooltip or modal for displaying the user indications of notes */}
+                  {/* {timenote.notes.map((note) => {
+                return <small>{note.content}</small>
+              })} */}
+                  <small
+                    style={{
+                      width: `${(timenote.timeOut - timenote.timeIn) * 100}%`,
+                      position: "absolute",
+                      left: `${timenote.timeIn * 100}%`,
+                      color: "#98B6D3",
+                      border: "none",
+                      fontSize: "2xp",
+                      boxShadow: "0px 1px 1px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    ✍︎
+                  </small>
+                </div>
+              );
+            })}
+          </div>
+        </>
       ) : (
         ""
       )}

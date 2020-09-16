@@ -19,7 +19,6 @@ import NoteTaker from "../NoteTaker";
 
 import { stageAddNote } from "../../../store/timenotes/actions";
 
-
 function Player() {
   const [played, setPlayed] = useState(0);
   const ref = useRef<ReactPlayer | null>(null);
@@ -30,7 +29,6 @@ function Player() {
   const [note, setNote] = useState(0);
 
   function handleSeekChange(e: any) {
-
     console.log("waarde", parseFloat(e.target.value));
     setPlayed(parseFloat(e.target.value));
   }
@@ -74,7 +72,6 @@ function Player() {
   }, [played]);
 
   const curTime = useSelector(selectCurTime);
-
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -186,7 +183,7 @@ function Player() {
               />
             </p>
 
-            <p>
+            {/* <p>
               Jump to{" "}
               <input
                 type="range"
@@ -197,7 +194,7 @@ function Player() {
                 onChange={handleSeekChange}
                 onMouseUp={handleSeekMouseUp}
               />
-            </p>
+            </p> */}
 
             <p>
               duration <Duration seconds={duration} />
