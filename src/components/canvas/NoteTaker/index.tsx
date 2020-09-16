@@ -15,6 +15,7 @@ import {
   selectMinMaxValueById,
   selectTimenotes,
 } from "../../../store/timenotes/selectors";
+import { stageCurTimeOfVideo } from "../../../store/video/actions";
 import VideoList from "../VideoPlayer/VideoList";
 
 // import Player from "../VideoPlayer/Index";
@@ -30,7 +31,7 @@ export default function NoteTaker() {
 
   function timelineout(e: any) {
     console.log(e.target.value);
-    setTimeLine(parseInt(e.target.value));
+    dispatch(stageCurTimeOfVideo(e.target.value));
   }
 
   function removeNote(id: number, timenoteId: number) {
@@ -38,11 +39,11 @@ export default function NoteTaker() {
   }
 
   function newNote() {
-    dispatch(stageAddNote(timelineValue));
+    dispatch(stageAddNote(curTime));
   }
 
   function newTimenote() {
-    dispatch(stageNewtimenote(timelineValue));
+    dispatch(stageNewtimenote(curTime));
   }
 
   const buttonshow = notesAtPointInTime.length === 0 ? true : false;
@@ -118,7 +119,7 @@ export default function NoteTaker() {
                 <div>
                   {note.id === 1 ? (
                     <div>
-                      {timenote.timeOut - timelineValue > 3 ? (
+                      {timenote.timeOut - curTime > 3 ? (
                         <div>
                           <small>range: </small>
                           <small>{timenote.timeIn} - </small>
@@ -128,9 +129,7 @@ export default function NoteTaker() {
                           </button>
                         </div>
                       ) : (
-                        <small>
-                          {timenote.timeOut - timelineValue} sec left
-                        </small>
+                        <small>{timenote.timeOut - curTime} sec left</small>
                       )}
                     </div>
                   ) : (
@@ -217,7 +216,7 @@ export default function NoteTaker() {
       </div>
       <input
         onChange={timelineout}
-        defaultValue={timelineValue}
+        defaultValue={curTime}
         style={{ width: "500px" }}
         type="range"
         min="0"
@@ -228,7 +227,7 @@ export default function NoteTaker() {
           {!playPause ? "play" : "pause"}
         </button>
       </div>
-      <p>time {timelineValue} in seconds</p>
+      <p>time {curTime} in seconds</p>
 
       {id !== 0 ? (
         <div style={{ width: "500px", margin: "auto" }}>
