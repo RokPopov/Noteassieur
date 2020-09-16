@@ -1,95 +1,96 @@
-import { Button, Container } from "@material-ui/core"
-import React, { useState, useRef, useEffect } from "react"
-import ReactPlayer from "react-player"
+import { Button, Container } from "@material-ui/core";
+import React, { useState, useRef, useEffect } from "react";
+import ReactPlayer from "react-player";
 // import VideoList from "./VideoList";
-import Duration from "./Duration"
-import "./index.css"
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
-import Paper from "@material-ui/core/Paper"
-import Grid from "@material-ui/core/Grid"
-import { useDispatch, useSelector } from "react-redux"
-import { selectMyVideo } from "../../../store/video/selector"
-import { stageCurTimeOfVideo } from "../../../store/video/actions"
+import Duration from "./Duration";
+import "./index.css";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import { useDispatch, useSelector } from "react-redux";
+import { selectMyVideo } from "../../../store/video/selector";
+import {
+  stageCurTimeOfVideo,
+  stageTotalTimeOfVideo,
+} from "../../../store/video/actions";
 
-function Player({ videoPlay }: { videoPlay: any }) {
-  const [played, setPlayed] = useState(0)
-  const ref = useRef<ReactPlayer | null>(null)
-  const [, setSeeking] = useState(true)
-  const [playing, setPlaying] = useState(false)
-  const [volume, setVolume] = useState(0.8)
-  const [duration, setDuration] = useState(1)
-  const [note, setNote] = useState(0)
+function Player() {
+  const [played, setPlayed] = useState(0);
+  const ref = useRef<ReactPlayer | null>(null);
+  const [, setSeeking] = useState(true);
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.8);
+  const [duration, setDuration] = useState(1);
+  const [note, setNote] = useState(0);
 
   function handleSeekChange(e: any) {
-    setPlayed(parseFloat(e.target.value))
+    setPlayed(parseFloat(e.target.value));
   }
 
   function handlePlayPause() {
-    setPlaying(!playing)
+    setPlaying(!playing);
   }
 
   function handleSeekMouseDown() {
-    setSeeking(true)
+    setSeeking(true);
   }
 
   function handleSeekMouseUp(e: any) {
-    setSeeking(false)
-    ref?.current?.seekTo(parseFloat(e.target.value))
+    setSeeking(false);
+    ref?.current?.seekTo(parseFloat(e.target.value));
   }
 
   function handleVolumeChange(e: any) {
-    setVolume(parseFloat(e.target.value))
+    setVolume(parseFloat(e.target.value));
   }
 
   function handleDuration(duration: number) {
-    setDuration(duration)
+    setDuration(duration);
   }
 
   function handleProgress(data: any) {
-    setPlayed(data.played)
+    setPlayed(data.played);
   }
 
   function handleAddNote() {
-    //console.log("This time", Math.round(duration * played))
-    setPlaying(false)
-    setNote(Math.round(duration * played))
+    setPlaying(false);
+    setNote(Math.round(duration * played));
   }
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const curTime = Math.round(duration * played)
-
-    dispatch(stageCurTimeOfVideo(curTime))
-  }, [played])
-
-  const videoId = videoPlay
+    const curTime = Math.round(duration * played);
+    const TotalTime = Math.round(duration);
+    dispatch(stageCurTimeOfVideo(curTime));
+    dispatch(stageTotalTimeOfVideo(TotalTime));
+  }, [played]);
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
-        flexGrow: 1
+        flexGrow: 1,
       },
       paper: {
         padding: theme.spacing(2),
         textAlign: "center",
-        color: theme.palette.text.secondary
-      }
+        color: theme.palette.text.secondary,
+      },
     })
-  )
+  );
 
   const buttonStyles = makeStyles((theme: Theme) =>
     createStyles({
       button: {
-        margin: theme.spacing(1)
-      }
+        margin: theme.spacing(1),
+      },
     })
-  )
+  );
 
-  const gridClass = gridStyles()
-  const buttonClass = buttonStyles()
+  const gridClass = gridStyles();
+  const buttonClass = buttonStyles();
 
-  const myVideo = useSelector(selectMyVideo)
+  const myVideo = useSelector(selectMyVideo);
 
   return (
     <Container maxWidth="xl">
@@ -97,7 +98,18 @@ function Player({ videoPlay }: { videoPlay: any }) {
         <Grid item xs>
           <Paper className={gridClass.paper}>
             <Container maxWidth="sm">
-              <ReactPlayer url={`https://www.youtube.com/watch?v=${myVideo.url}.`} ref={ref} playing={playing} controls={false} config={{ file: { attributes: { id: "audio-element" } } }} width="640px" height="320px" volume={volume} onProgress={handleProgress} onDuration={handleDuration} />
+              <ReactPlayer
+                url={`https://www.youtube.com/watch?v=${myVideo.url}.`}
+                ref={ref}
+                playing={playing}
+                controls={false}
+                config={{ file: { attributes: { id: "audio-element" } } }}
+                width="640px"
+                height="320px"
+                volume={volume}
+                onProgress={handleProgress}
+                onDuration={handleDuration}
+              />
             </Container>
           </Paper>
         </Grid>
@@ -140,10 +152,28 @@ function Player({ videoPlay }: { videoPlay: any }) {
               </p>
             )}
             <p>
-              Volume <input type="range" min={0} max={1} step="any" value={volume} onChange={handleVolumeChange} />
+              Volume{" "}
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step="any"
+                value={volume}
+                onChange={handleVolumeChange}
+              />
             </p>
             <p>
-              Jump to <input type="range" min={0} max={0.999999} step="any" value={played} onMouseDown={handleSeekMouseDown} onChange={handleSeekChange} onMouseUp={handleSeekMouseUp} />
+              Jump to{" "}
+              <input
+                type="range"
+                min={0}
+                max={0.999999}
+                step="any"
+                value={played}
+                onMouseDown={handleSeekMouseDown}
+                onChange={handleSeekChange}
+                onMouseUp={handleSeekMouseUp}
+              />
             </p>
             <p>
               duration <Duration seconds={duration} />
@@ -160,7 +190,7 @@ function Player({ videoPlay }: { videoPlay: any }) {
         </Grid>
       </Grid>
     </Container>
-  )
+  );
 }
 
-export default Player
+export default Player;
