@@ -192,7 +192,7 @@ export default function NoteTaker() {
           width: "500px",
           height: "15px",
           margin: "auto",
-          boxShadow: "1px 1px 1px rgba(1,0,0,0.05)",
+          boxShadow: "1px 1px 1px  rgba(1,0,0,0.05)",
         }}
       >
         {allTimeNotes.map((timenote) => {
