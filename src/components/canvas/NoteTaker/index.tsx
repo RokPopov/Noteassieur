@@ -1,24 +1,14 @@
-
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Timenote } from "../../../global"
 import { stageAddNote, stageEditNote, stageNewtimenote, stageRemoveNote, stageSetTimeIn, stageSetTimeOut } from "../../../store/timenotes/actions"
 import { selectAllTimenotes, selectMinMaxValueById, selectTimenotes } from "../../../store/timenotes/selectors"
-
-export default function KonvaApproach() {
-  const dispatch = useDispatch()
-
-
-
+import VideoList from "../VideoPlayer/VideoList"
 
 // import Player from "../VideoPlayer/Index";
-import VideoList from "../VideoPlayer/VideoList";
 
-export default function KonvaApproach() {
-  const allNotes = useSelector(selectAllNotes);
-
-  const dispatch = useDispatch();
-
+export default function NoteTaker() {
+  const dispatch = useDispatch()
 
   const [timelineValue, setTimeLine] = useState(0)
   const [playPause, setPlayPause] = useState(false)
@@ -43,8 +33,6 @@ export default function KonvaApproach() {
   }
 
   function newNote() {
-    
-
     dispatch(stageAddNote(timelineValue))
   }
 
@@ -85,7 +73,7 @@ export default function KonvaApproach() {
 
   const allTimeNotes = useSelector(selectAllTimenotes)
 
-  const [videoLength, setVideoLength] = useState(500)
+  const [videoLength, setVideoLength] = useState(60 * 5)
 
   const [deleteBtn, setDelete] = useState(false)
   const [opacityDelete, setstate] = useState(1)
@@ -147,7 +135,15 @@ export default function KonvaApproach() {
       </div>
       <div style={{ position: "relative", width: "500px", height: "15px", margin: "auto", boxShadow: "1px 1px 1px rgba(1,0,0,0.05)" }}>
         {allTimeNotes.map((timenote) => {
-          return <small style={{ width: `${(500 / videoLength) * (timenote.timeOut - timenote.timeIn)}px`, position: "absolute", left: `${(500 / videoLength) * timenote.timeIn}px`, color: "#98B6D3", border: "none", fontSize: "2xp", boxShadow: "0px 1px 1px rgba(0,0,0,0.2)" }}>✍︎</small>
+          return (
+            <div>
+              {/* // make a tooltip or modal for displaying the user indications of notes */}
+              {/* {timenote.notes.map((note) => {
+                return <small>{note.content}</small>
+              })} */}
+              <small style={{ width: `${(500 / videoLength) * (timenote.timeOut - timenote.timeIn)}px`, position: "absolute", left: `${(500 / videoLength) * timenote.timeIn}px`, color: "#98B6D3", border: "none", fontSize: "2xp", boxShadow: "0px 1px 1px rgba(0,0,0,0.2)" }}>✍︎</small>
+            </div>
+          )
         })}
       </div>
       <input onChange={timelineout} defaultValue={timelineValue} style={{ width: "500px" }} type="range" min="0" max={`${videoLength}`} />
@@ -168,74 +164,4 @@ export default function KonvaApproach() {
       )}
     </div>
   )
-
-    dispatch(stageNewNote());
-  }
-
-  function removeNote(id: number) {
-    dispatch(stageRemoveNote(id));
-  }
-
-  function changeNote(e: textAreaOnChange) {
-    const content = e.target.value;
-    const id = parseInt(e.target.id);
-
-    dispatch(stageChangeNote(id, content));
-  }
-
-  const [show, setShow] = useState(true);
-
-  function minimize() {
-    setShow(!show);
-  }
-
-  const display = show ? "none" : "";
-  const gridsize = show ? 100 : 200;
-
-  return (
-    <>
-      <div
-        style={{ display: "grid", gridTemplateColumns: `${gridsize}px 200px` }}
-      >
-        <div>
-          <button onClick={minimize} style={{ fontSize: "9px", margin: "5px" }}>
-            {!show ? "minimize" : "maximize"}
-          </button>
-          <div style={{ display: `${display}` }}>
-            {allNotes.map((note) => {
-              return (
-                <div key={note.id}>
-                  <textarea
-                    id={note.id.toString()}
-                    onChange={changeNote}
-                    defaultValue={note.content}
-                    name=""
-                    cols={13}
-                    rows={3}
-                  ></textarea>
-                  <button onClick={() => removeNote(note.id)}>-</button>
-                </div>
-              );
-            })}
-            <br />
-            <button onClick={newNote}>Add a note</button>
-          </div>
-        </div>
-        <div>
-          <div
-            style={{
-              border: "1px solid black",
-              width: "400px",
-              height: "200px",
-              margin: "auto",
-            }}
-          >
-            {allNotes.map((note) => {
-              return <p>{note.content.length > 1 ? note.content : "_"}</p>;
-            })}
-          </div>
-        </div>
-      </div>
-    </>
-  );
 }
