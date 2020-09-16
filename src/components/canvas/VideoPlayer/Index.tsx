@@ -14,9 +14,11 @@ import {
   stageTotalTimeOfVideo,
 } from "../../../store/video/actions";
 import { selectCurTime } from "../../../store/timenotes/selectors";
+
 import NoteTaker from "../NoteTaker";
 
 import { stageAddNote } from "../../../store/timenotes/actions";
+
 
 function Player() {
   const [played, setPlayed] = useState(0);
@@ -28,6 +30,7 @@ function Player() {
   const [note, setNote] = useState(0);
 
   function handleSeekChange(e: any) {
+
     console.log("waarde", parseFloat(e.target.value));
     setPlayed(parseFloat(e.target.value));
   }
@@ -71,6 +74,7 @@ function Player() {
   }, [played]);
 
   const curTime = useSelector(selectCurTime);
+
 
   const gridStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -179,6 +183,19 @@ function Player() {
                 step="any"
                 value={volume}
                 onChange={handleVolumeChange}
+              />
+            </p>
+
+            <p>
+              Jump to{" "}
+              <input
+                type="range"
+                min={0}
+                max={0.999999}
+                step="any"
+                value={curTime}
+                onChange={handleSeekChange}
+                onMouseUp={handleSeekMouseUp}
               />
             </p>
 
