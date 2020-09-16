@@ -96,6 +96,8 @@ export default function NoteTaker() {
     }, 1000);
   }
 
+  console.log("time", curTime);
+
   return (
     <div>
       <div
@@ -216,11 +218,12 @@ export default function NoteTaker() {
       </div>
       <input
         onChange={timelineout}
-        defaultValue={curTime}
+        value={curTime}
         style={{ width: "500px" }}
         type="range"
-        min="0"
-        max={`${videoLength}`}
+        min={0}
+        max={0.999999}
+        step="any"
       />
       <div>
         <button onClick={() => setPlayPause(!playPause)}>

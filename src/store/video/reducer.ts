@@ -10,7 +10,7 @@ const initialState: Video = {
   title: "test video",
   url: "", // some video
   lengthOfVid: 200,
-  curTimeOfVideo: 10,
+  curTimeOfVideo: 0.0,
   // lengthOfVid: 200 // this should be dynamically
 };
 
