@@ -21,5 +21,5 @@ export type Video = {
   title: string
   url: VideoId
   lengthOfVid: number
-  curTimeOfVideo: number
+  curTimeOfVideo: string
 }

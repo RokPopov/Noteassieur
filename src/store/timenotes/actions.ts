@@ -16,7 +16,7 @@ function removeNoteByIds(id: number, timenoteId: number) {
   }
 }
 
-export function stageNewtimenote(curtime: number) {
+export function stageNewtimenote() {
   return (dispatch: Dispatch, getState: GetState) => {
     const HighestId = getState().timenotes.reduce((accumulator: any, timenote) => {
       if (timenote.id > accumulator) {
@@ -25,12 +25,17 @@ export function stageNewtimenote(curtime: number) {
       return accumulator
     }, 0)
 
+    const timeasString = getState().video.curTimeOfVideo
+
+    const curtime = parseInt(timeasString)
     const newId = HighestId + 1
+    const curtimePlussed = curtime + 30
 
     dispatch({
       type: NEW_NOTE_AT_CUR_TIME,
       curtime,
-      newId
+      newId,
+      curtimePlussed
     })
   }
 }

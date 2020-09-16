@@ -42,6 +42,7 @@ type NewNoteAtCurTime = {
   type: typeof NEW_NOTE_AT_CUR_TIME
   curtime: number
   newId: number
+  curtimePlussed: number
 }
 
 export type myNoteActionTypes = RemoveNoteByIds | StoreANotByTimenoteId | SetTimeInById | SetTimeOutById | ChangeNoteById | NewNoteAtCurTime
