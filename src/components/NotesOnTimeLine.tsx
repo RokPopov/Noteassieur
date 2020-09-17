@@ -18,9 +18,9 @@ export default function NotesOnTimeLine() {
                 return <small>{note.content}</small>
               })} */}
 
-            {console.log("THIS IS TIMENOTE TIME IN: ", timenote.timeIn)}
-            {console.log("LEN OF VID:", lengthOfVid)}
-            {console.log("CALC 1", timenote.timeIn * lengthOfVid)}
+           
+            
+        
 
             <small
               style={{

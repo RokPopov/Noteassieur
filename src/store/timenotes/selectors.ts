@@ -19,7 +19,7 @@ export const selectMinMaxValueById = (id: number | null) => {
       }
     });
 
-    console.log(id);
+    
   };
 };
 

@@ -22,7 +22,7 @@ function App() {
       const params = new URLSearchParams(location.search)
       const VideoUrl = params.get("url")
 
-      console.log("Hello?")
+     
 
       if (VideoUrl) {
         dispatch(stageCurVideo(VideoUrl))
