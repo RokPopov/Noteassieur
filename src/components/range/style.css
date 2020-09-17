@@ -1,0 +1,28 @@
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  background: #8f8f8f;
+
+  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* All the same stuff for IE */
+input[type="range"]::-ms-thumb {
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
