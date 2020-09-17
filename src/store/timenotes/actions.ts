@@ -67,7 +67,7 @@ function storeANoteByTimenoteId(timenoteId: Number, highestID: number) {
   }
 }
 
-export function stageSetTimeIn(timeIn: number, timenoteId: number) {
+export function stageSetTimeIn(timeIn: number, timenoteId: number | null) {
   return (dispatch: Dispatch) => {
     console.log(timeIn)
     console.log(timenoteId)
@@ -80,7 +80,7 @@ export function stageSetTimeIn(timeIn: number, timenoteId: number) {
   }
 }
 
-export function stageSetTimeOut(timeOut: number, timenoteId: number) {
+export function stageSetTimeOut(timeOut: number, timenoteId: number | null) {
   return (dispatch: Dispatch) => {
     console.log(timeOut)
     console.log(timenoteId)

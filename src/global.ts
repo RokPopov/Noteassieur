@@ -1,8 +1,3 @@
-export type Canvas = {
-  width: number
-  height: number
-}
-
 export type Note = {
   id: number
   content: string
@@ -22,4 +17,9 @@ export type Video = {
   url: VideoId
   lengthOfVid: number
   curTimeOfVideo: number
+}
+
+export type Appstore = {
+  btnRangeVisible: boolean
+  curTimeNoteId: number | null
 }
