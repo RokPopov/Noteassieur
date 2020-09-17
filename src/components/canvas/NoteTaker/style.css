@@ -1,0 +1,11 @@
+textarea {
+  background: url(http://i.stack.imgur.com/ynxjD.png) repeat-y;
+  width: 550px;
+  height: 300px;
+  font: normal 20px verdana;
+  color: rgb(39, 39, 39);
+  line-height: 25px;
+  padding: 2px 10px;
+  border: solid 2px #ddd;
+  outline: none;
+}
