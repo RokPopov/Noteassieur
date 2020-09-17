@@ -11,7 +11,7 @@ export default (state = initialState, action: myNoteActionTypes) => {
         {
           id: action.newId,
           timeIn: action.curtime,
-          timeOut: action.curtime + 10,
+          timeOut: action.curtime + 0.1,
           notes: [
             {
               id: 1,
