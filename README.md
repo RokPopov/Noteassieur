@@ -1,44 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 🪒Captain Barber 🪒
 
-## Available Scripts
+Captain Barber is a portfolio project where you can search for barbershops in Amsterdam, see and write their reviews, rate them and add new barbershops. You can see the information about the services they provide so you can compare the prices and decide where to book your appointment. You can also find contact information for each barbershop and locate them on a map, so you always know where to go to get that clean cut.
 
-In the project directory, you can run:
+## Table of contents:
 
-### `npm start`
+- **[Goals for this Project](#goals-for-this-project)**
+- **[User Stories](#user-stories)**
+- **[App Demo](#app-demo)**
+- **[Working Version](#working-version)**
+- **[Database Diagram](#database-diagram)**
+- **[Project-Board](#kanban-task-board)**
+- **[Wireframe](#wireframe)**
+- **[Backend](#backend)**
+- **[Technologies Used](#technologies-used)**
+- **[Git Version Control](#git-version-control)**
+- **[SETUP](#getting-started)**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Goals for this Project
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The goal of this project is to build a frontend app, in a working group of three.
+With this project, we are trying to:
 
-### `npm test`
+- build a demo version in four days
+- apply the technologies we learned in Codaisseur Bootcamp
+- showcase implementation of new technologies
+- work in a team
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## User Stories
 
-### `npm run build`
+- As a page visitor, I can sign up and log in as a user. I must register before I can post reviews and like barbershops.
+- As a page visitor, I am able see existing barbershops, their rates and reviews. I can see them sorted by their rates in a descending order.
+- As a page visitor, I am able to see the name of the user, that posted a review and the time and date of when it was posted.
+- As a page visitor, I am able to see the existing barbershops on a map and get to their detail page when clicking on them.
+- As a logged in user, I am able to rate and review barbershops.
+- As a barbershop owner, I can log in as a barbershop owner.
+- As a logged in barbershop owner, I am able to add a new barbershop to the list of barbershops.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## App Demo
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+to do []
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Captain Barber Demo](CaptainBarberAppDemo.gif)
 
-### `npm run eject`
+## Working Version
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+to do []
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Link to Captain Barber](https://captainbarber.netlify.app/)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Database Diagram
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[Link to the DB diagram](https://dbdiagram.io/d/5f5fa0db7da1ea736e2dd012)
 
-## Learn More
+(made for future development)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Board
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Link to the project board](https://github.com/RokPopov/Noteassieur-FrontEnd/projects/2)
+
+## Wireframe
+
+[Link to the wireframe](https://www.figma.com/file/9adXlJp320LdAFDy2icKdD/Untitled?node-id=1%3A2)
+
+## Backend
+
+[Link to the server side of the project](https://github.com/RokPopov/Noteassieur-BackEnd)
+
+(made for future development)
+
+## Technologies Used
+
+- TypeScript
+- React
+- React Router DOM
+- Redux
+- Redux Thunk
+- Html, JSX
+- CSS, Material-UI
+
+## Git Version Control
+
+In this project I try to implement solid version control:
+
+- write clear commit messages
+- name branches by features
+- do pull requests with meaningful summaries
+
+## SETUP Getting started
+
+- clone your app
+- cd into your project
+- npm install
+- npm start

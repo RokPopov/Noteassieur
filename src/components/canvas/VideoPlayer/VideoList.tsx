@@ -36,7 +36,7 @@ function VideoList() {
     try {
       const result = await axios(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${search}&key=${apiKey}`)
 
-      console.log("THIS IS FETCH FROM YOUTUBE:", result)
+      
       setData(result.data.items)
     } catch (error) {
       console.log(error.message)

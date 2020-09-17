@@ -43,8 +43,8 @@ export function stageAddNote(timeLineValue: number) {
       const isInside = startsAfter && endsBefore
       return isInside
     })
-    console.log(timeLineValue)
-    console.log("this is it:", timenoteMatchingTimecode[0].id)
+    
+   
 
     const timenoteId = timenoteMatchingTimecode[0].id
 
@@ -69,8 +69,7 @@ function storeANoteByTimenoteId(timenoteId: Number, highestID: number) {
 
 export function stageSetTimeIn(timeIn: number, timenoteId: number | null) {
   return (dispatch: Dispatch) => {
-    console.log(timeIn)
-    console.log(timenoteId)
+   
 
     dispatch({
       type: SET_TIME_IN_BY_ID,
@@ -82,8 +81,7 @@ export function stageSetTimeIn(timeIn: number, timenoteId: number | null) {
 
 export function stageSetTimeOut(timeOut: number, timenoteId: number | null) {
   return (dispatch: Dispatch) => {
-    console.log(timeOut)
-    console.log(timenoteId)
+    
 
     dispatch({
       type: SET_TIME_OUT_BY_ID,
