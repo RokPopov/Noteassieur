@@ -104,26 +104,15 @@ export default function NoteTaker() {
             return timenote.notes.map((note) => {
               return (
                 <div>
-                  {note.id === 1 ? (
-                    <div>
-                      {timenote.timeOut - curTime > 3 ? (
-                        <div>
-                          {/* <small>range: </small>
-                          <small>{timenote.timeIn} - </small>
-                          <small>{timenote.timeOut} </small> */}
-                          <NoteRangeToggleBtn timenoteId={timenote.id} />
-                        </div>
-                      ) : (
-                        <small>{timenote.timeOut - (curTime * TotalTime) / 100} sec left</small>
-                      )}
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  {note.id === 1 ? <div></div> : ""}
                   {deleteBtn ? (
-                    <button style={{ fontSize: "4px", opacity: `${opacityDelete}` }} onClick={() => removeNote(note.id, timenote.id)}>
-                      ❌
-                    </button>
+                    <div>
+                      <NoteRangeToggleBtn timenoteId={timenote.id} />
+
+                      <button style={{ fontSize: "4px", opacity: `${opacityDelete}` }} onClick={() => removeNote(note.id, timenote.id)}>
+                        ❌
+                      </button>
+                    </div>
                   ) : (
                     ""
                   )}

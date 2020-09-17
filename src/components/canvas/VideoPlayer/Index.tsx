@@ -16,6 +16,7 @@ import NoteTaker from "../NoteTaker"
 
 import { stageAddNote } from "../../../store/timenotes/actions"
 import NoteRangeSetter from "../../NoteRangeSetter"
+import NotesOnTimeLine from "../../NotesOnTimeLine"
 
 function Player() {
   const [played, setPlayed] = useState(0)
@@ -114,10 +115,11 @@ function Player() {
             <NoteRangeSetter />
 
             {/* This Button uses a Font Icon, see the installation instructions in the Icon component docs. */}
-
+            <NotesOnTimeLine />
             <p>
               <input type="range" min={0} max={0.999999} style={{ width: "500px" }} step="any" value={curTime} onChange={handleSeekChange} onMouseUp={handleSeekMouseUp} />
             </p>
+
             {playing ? (
               <p>
                 <Button

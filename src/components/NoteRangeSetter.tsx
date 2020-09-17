@@ -4,9 +4,9 @@ import Typography from "@material-ui/core/Typography"
 import Slider from "@material-ui/core/Slider"
 import { useDispatch, useSelector } from "react-redux"
 import { selectBtnRangeVisible, selectCurTimeNoteId } from "../store/appstore/selector"
-import { selectMinMaxValueById, selectTotalTime } from "../store/timenotes/selectors"
+import { selectMinMaxValueById } from "../store/timenotes/selectors"
 import { stageSetTimeIn, stageSetTimeOut } from "../store/timenotes/actions"
-import Duration from "./canvas/VideoPlayer/Duration"
+import { selectLengthOfVid } from "../store/video/selector"
 
 const useStyles = makeStyles({
   root: {
@@ -28,10 +28,10 @@ export default function RangeSlider() {
 
   const classes = useStyles()
 
-  const totalTime = useSelector(selectTotalTime)
+  const lengthOfVid = useSelector(selectLengthOfVid)
 
-  const inValue = <Duration seconds={inoutRange?.timeIn !== undefined ? inoutRange?.timeIn * totalTime : 25} />
-  const outValue = <Duration seconds={inoutRange?.timeOut !== undefined ? inoutRange.timeOut * totalTime : 75} />
+  const inValue = inoutRange?.timeIn !== undefined ? inoutRange?.timeIn * lengthOfVid : 25
+  const outValue = inoutRange?.timeOut !== undefined ? inoutRange.timeOut * lengthOfVid : 75
 
   useEffect(() => {
     setValue([inValue, outValue])
@@ -44,8 +44,8 @@ export default function RangeSlider() {
   const dispatch = useDispatch()
 
   const handleChange = (event: any, newValue: any) => {
-    dispatch(stageSetTimeIn(newValue[0], curtimenotid))
-    dispatch(stageSetTimeOut(newValue[1], curtimenotid))
+    dispatch(stageSetTimeIn(newValue[0] / lengthOfVid, curtimenotid))
+    dispatch(stageSetTimeOut(newValue[1] / lengthOfVid, curtimenotid))
 
     setValue(newValue)
   }
@@ -57,7 +57,7 @@ export default function RangeSlider() {
             <Typography id="range-slider" gutterBottom>
               Temperature range
             </Typography>
-            <Slider style={{ position: "relative" }} value={totalTime} onChange={handleChange} valueLabelDisplay="auto" aria-labelledby="range-slider" getAriaValueText={valuetext} />
+            <Slider min={0} max={lengthOfVid} style={{ position: "relative" }} value={value} onChange={handleChange} valueLabelDisplay="auto" aria-labelledby="range-slider" getAriaValueText={valuetext} />
           </div>
         </div>
       ) : (
