@@ -19,7 +19,7 @@ function VideoList() {
 
   const [videoId, setVideoId] = useState<VideoId>("");
 
-  const apiKey = "AAIzaSyB7oqbGww66q-TjxLGIK75kuaD20ChdoUc";
+  const apiKey = "AIzaSyB7oqbGww66q-TjxLGIK75kuaD20ChdoUc";
 
   function handleSubmit(e: any) {
     e.preventDefault();
