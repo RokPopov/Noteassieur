@@ -12,7 +12,7 @@ export default function Title() {
           boxShadow: "2px 2px 2px #000",
         }}
       >
-        Noteassieur
+        <small>📝</small>Noteassieur<small>🎬</small>
       </p>
     </div>
   );
