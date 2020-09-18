@@ -64,12 +64,6 @@ export default function Footer() {
           </p>
         </Col>
       </Row>
-      <Row
-        className="justify-content-center"
-        style={{
-          backgroundColor: "#fff",
-        }}
-      ></Row>
     </>
   );
 }
