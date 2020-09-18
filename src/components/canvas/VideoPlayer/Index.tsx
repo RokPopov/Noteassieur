@@ -109,8 +109,8 @@ function Player() {
                 playing={playing}
                 controls={false}
                 config={{ file: { attributes: { id: "audio-element" } } }}
-                width="640px"
-                height="320px"
+                width="100%"
+                height="400px"
                 volume={volume}
                 onProgress={handleProgress}
                 onDuration={handleDuration}
