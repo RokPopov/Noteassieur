@@ -4,6 +4,7 @@ Noteassieur is a note-making video library app. It is meant to be a tool for stu
 
 ## Table of contents:
 
+- **[App Demo](#app-demo)**
 - **[Goals for this Project](#goals-for-this-project)**
 - **[User Stories](#user-stories)**
 - **[Working Version](#working-version)**
@@ -14,13 +15,18 @@ Noteassieur is a note-making video library app. It is meant to be a tool for stu
 - **[Git Version Control](#git-version-control)**
 - **[SETUP](#getting-started)**
 
+## App Demo
+
+![Captain Barber Demo](Noteassieur-demo.gif)
+
 ## Goals for this Project
 
 The goal of this project is to build a frontend app, in a working group of three. With this project, we are trying to:
-* build a demo version in four days
-* apply the technologies we learned in Codaisseur Bootcamp
-* showcase implementation of new technologies
-* work in a team 
+
+- build a demo version in four days
+- apply the technologies we learned in Codaisseur Bootcamp
+- showcase implementation of new technologies
+- work in a team
 
 ## User Stories
 
