@@ -7,6 +7,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { stageCurVideo } from "./store/video/actions";
 import Title from "./components/Title";
+import Footer from "./components/Footer";
 
 function App() {
   const history = useHistory();
@@ -33,6 +34,7 @@ function App() {
     <div className="App">
       <Title />
       <VideoList />
+      <Footer />
     </div>
   );
 }
